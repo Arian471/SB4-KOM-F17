@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
@@ -14,8 +15,6 @@ import dk.sdu.mmmi.cbse.playersystem.EntityPlugin;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Game implements ApplicationListener {
 
@@ -24,7 +23,7 @@ public class Game implements ApplicationListener {
 
     private final GameData gameData = new GameData();
     private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
-    private Map<String, Entity> world = new ConcurrentHashMap<>();
+    private World world = new World();
     private IGamePluginService playerPlugin;
     private IEntityProcessingService playerProcessor;
 
@@ -68,14 +67,12 @@ public class Game implements ApplicationListener {
 
     private void update() {
         // Update
-        for (Entity e : world.values()) {
-            playerProcessor.process(gameData, world, e);
-        }
+        playerProcessor.process(gameData, world);
 
     }
 
     private void draw() {
-        for (Entity entity : world.values()) {
+        for (Entity entity : world.getEntities()) {
             float[] shapex = entity.getShapeX();
             float[] shapey = entity.getShapeY();
             if (shapex != null && shapey != null) {

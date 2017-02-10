@@ -3,24 +3,22 @@ package dk.sdu.mmmi.cbse.playersystem;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import static dk.sdu.mmmi.cbse.common.data.EntityType.PLAYER;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import java.util.Map;
 
 public class EntityPlugin implements IGamePluginService {
 
-    private Map<String, Entity> world;
     private Entity player;
 
     public EntityPlugin() {
     }
 
     @Override
-    public void start(GameData gameData, Map<String, Entity> world) {
+    public void start(GameData gameData, World world) {
 
-        this.world = world;
         // Add entities to the world
         player = createPlayerShip(gameData);
-        world.put(player.getID(), player);
+        world.addEntity(player);
     }
 
     private Entity createPlayerShip(GameData gameData) {
@@ -41,9 +39,9 @@ public class EntityPlugin implements IGamePluginService {
     }
 
     @Override
-    public void stop(GameData gameData) {
+    public void stop(GameData gameData, World world) {
         // Remove entities
-        world.remove(player.getID());
+        world.removeEntity(player);
     }
 
 }
