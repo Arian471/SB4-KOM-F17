@@ -2,3 +2,7 @@
 AsteroidsEntity/Common/target/
 AsteroidsEntity/Core/target/
 AsteroidsEntity/Player/target/
+/ServiceLoaderExample/DictionaryServiceProvider/target/
+/ServiceLoaderExample/GeneralDictionary/target/
+/ServiceLoaderExample/DictionaryDemo/target/
+/ServiceLoaderExample/ExtendedDictionary/target/
