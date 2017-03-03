@@ -6,3 +6,6 @@ AsteroidsEntity/Player/target/
 /ServiceLoaderExample/GeneralDictionary/target/
 /ServiceLoaderExample/DictionaryDemo/target/
 /ServiceLoaderExample/ExtendedDictionary/target/
+NBRuntimeExample/application/target/
+NBRuntimeExample/branding/target/nbm/netbeans/nbruntimeexample/modules/locale/org-netbeans-core_nbruntimeexample.jar
+NBRuntimeExample/branding/target/
