@@ -65,6 +65,7 @@
         <module>CommonAsteroids</module>
         <module>CommonEnemy</module>
         <module>LaserWeapon</module>
+        <module>CollisionDetection</module>
     </modules>
 
     <properties>
