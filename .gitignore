@@ -9,3 +9,7 @@ AsteroidsEntity/Player/target/
 NBRuntimeExample/application/target/
 NBRuntimeExample/branding/target/nbm/netbeans/nbruntimeexample/modules/locale/org-netbeans-core_nbruntimeexample.jar
 NBRuntimeExample/branding/target/
+/AsteroidsNetbeansModules/CommonAsteroids/target/
+/AsteroidsNetbeansModules/CommonBullet/target/
+/AsteroidsNetbeansModules/CommonEnemy/target/
+/AsteroidsNetbeansModules/LaserWeapon/target/

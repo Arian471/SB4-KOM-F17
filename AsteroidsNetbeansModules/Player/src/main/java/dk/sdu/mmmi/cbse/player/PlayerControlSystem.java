@@ -1,20 +1,19 @@
 package dk.sdu.mmmi.cbse.player;
 
+import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
-import static dk.sdu.mmmi.cbse.common.data.EntityType.PLAYER;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.LEFT;
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.RIGHT;
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.SPACE;
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.UP;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.events.Event;
-import static dk.sdu.mmmi.cbse.common.events.EventType.PLAYER_SHOOT;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -24,6 +23,8 @@ import org.openide.util.lookup.ServiceProviders;
     @ServiceProvider(service = IGamePluginService.class)}
 )
 public class PlayerControlSystem implements IEntityProcessingService, IGamePluginService {
+    private float CD;
+    private boolean canShoot = true;
 
     @Override
     public void start(GameData gameData, World world) {
@@ -36,7 +37,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity player : world.getEntities(PLAYER)) {
+        for (Entity player : world.getEntities(Player.class)) {
 
             float x = player.getX();
             float y = player.getY();
@@ -59,8 +60,15 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
             }
 
             //Shoot
-            if (gameData.getKeys().isDown(SPACE)) {
-                gameData.addEvent(new Event(PLAYER_SHOOT, player.getID()));
+            weaponCD(gameData);
+
+            BulletSPI bulletProvider = Lookup.getDefault().lookup(BulletSPI.class);
+
+            if (gameData.getKeys().isDown(SPACE) && canShoot && bulletProvider != null) {
+                Entity bullet = bulletProvider.createBullet(player, gameData);
+                world.addEntity(bullet);
+                canShoot = false;
+                CD = 0.3f;
             }
 
             // accelerating            
@@ -95,6 +103,11 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
                 y = gameData.getDisplayHeight();
             }
 
+            if (player.isHit()) {
+                player.setLife(player.getLife() - 1);
+                player.setIsHit(false);
+            }
+
             // Update entity
             player.setPosition(x, y);
             player.setDx(dx);
@@ -102,6 +115,14 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
             player.setRadians(radians);
 
             updateShape(player);
+        }
+    }
+
+    private void weaponCD(GameData gameData) {
+        if (CD > 0) {
+            CD -= gameData.getDelta();
+        } else {
+            canShoot = true;
         }
     }
 
@@ -129,8 +150,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
     }
 
     private Entity createPlayerShip(GameData gameData) {
-        Entity playerShip = new Entity();
-        playerShip.setType(PLAYER);
+        Entity playerShip = new Player();
 
         playerShip.setPosition(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
 
@@ -154,7 +174,7 @@ public class PlayerControlSystem implements IEntityProcessingService, IGamePlugi
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
-        for (Entity entity : world.getEntities(PLAYER)) {
+        for (Entity entity : world.getEntities(Player.class)) {
             world.removeEntity(entity);
         }
     }

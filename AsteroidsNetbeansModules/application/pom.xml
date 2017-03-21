@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>dk.sdu.mmmi.cbse</groupId>
@@ -27,11 +27,25 @@
             <version>${netbeans.version}</version>
             <type>pom</type>
         </dependency>-->
+        <!-- NB runtime -->
         <dependency>
             <groupId>org.netbeans.modules</groupId>
             <artifactId>org-netbeans-core-startup</artifactId>
             <version>${netbeans.version}</version>
-        </dependency>        
+        </dependency>       
+        <!-- OSGi integration -->
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-core-netigso</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>  
+        <!-- Equinox integration -->
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-netbinox</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
+                        
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>AsteroidsNetbeansModules-branding</artifactId>
@@ -43,14 +57,9 @@
             <version>${netbeans.version}</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Common</artifactId>
+            <artifactId>Core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -60,17 +69,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>HealthSystem</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Asteroid</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>CollisionDetection</artifactId>
+            <artifactId>Common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -78,46 +77,6 @@
             <artifactId>LaserWeapon</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>AI</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
-<!--        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>SilentUpdate</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
-<!--        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-netbeans-modules-autoupdate-ui</artifactId>
-            <version>RELEASE81</version>
-        </dependency>
-        <dependency>
-            <groupId>org.netbeans.modules</groupId>
-            <artifactId>org-netbeans-core-windows</artifactId>
-            <version>RELEASE81</version>
-        </dependency>-->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Core</artifactId>
-            <version>${project.version}</version>
-                </dependency>
-        <!--        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>SilentUpdate</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>Player</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>Common</artifactId>
-                    <version>${project.version}</version>
-                </dependency>
     </dependencies>
 
     <build>
@@ -160,7 +119,7 @@
                                 <id>extra</id>
                                 <goals>
                                     <goal>autoupdate</goal>
-                                   <!-- <goal>webstart-app</goal> 
+                                    <!-- <goal>webstart-app</goal> 
                                     <goal>build-installers</goal>-->
                                 </goals>
                             </execution>
