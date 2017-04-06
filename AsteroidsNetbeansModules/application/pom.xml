@@ -32,20 +32,20 @@
             <groupId>org.netbeans.modules</groupId>
             <artifactId>org-netbeans-core-startup</artifactId>
             <version>${netbeans.version}</version>
-        </dependency>       
+        </dependency>
         <!-- OSGi integration -->
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-core-netigso</artifactId>
             <version>${netbeans.version}</version>
-        </dependency>  
+        </dependency>
         <!-- Equinox integration -->
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-netbinox</artifactId>
             <version>${netbeans.version}</version>
         </dependency>
-                        
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>AsteroidsNetbeansModules-branding</artifactId>
@@ -59,27 +59,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Player</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>LaserWeapon</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>CollisionDetection</artifactId>
+            <artifactId>OSGiExtender</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -124,7 +104,7 @@
                                 <id>extra</id>
                                 <goals>
                                     <goal>autoupdate</goal>
-                                    <!-- <goal>webstart-app</goal> 
+                                    <!-- <goal>webstart-app</goal>
                                     <goal>build-installers</goal>-->
                                 </goals>
                             </execution>
